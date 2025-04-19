@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    background: #f7f7f7;
+    color: #333;
+}
+
+h1, h2 {
+    color: #222;
+}
+
+ul {
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+code {
+    background: #eee;
+    padding: 2px 4px;
+    border-radius: 4px;
+    display: block;
+    white-space: pre-wrap;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 8px;
+    overflow-x: auto;
+}

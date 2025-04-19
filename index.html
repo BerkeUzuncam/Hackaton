@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Timed Buttons Escape Room Puzzle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Timed Buttons Escape Room Puzzle</h1>
+    <p><strong>Teamleden:</strong> [Naam1], [Naam2]</p>
+    <p><strong>Datum:</strong> April 2025</p>
+
+    <h2>1. Werking</h2>
+    <p>De speler moet binnen een tijdslimiet knoppen in de juiste volgorde indrukken...</p>
+
+    <h2>2. Benodigdheden</h2>
+    <ul>
+        <li>Arcade-knoppen met verlichting</li>
+        <li>Arduino Uno</li>
+        <li>Weerstanden en bedrading</li>
+        <li>LCD-scherm of LED-matrix</li>
+        <li>Afstandsbediening voor spelkeuze</li>
+    </ul>
+
+    <h2>3. Blokschema</h2>
+    <img src="images/fritzing-schema.png" alt="Blokschema met Fritzing">
+
+    <h2>4. Code</h2>
+    <pre><code>
+// Simpele voorbeeldcode
+void setup() {
+  Serial.begin(9600);
+  pinMode(2, INPUT);
+}
+void loop() {
+  if(digitalRead(2) == HIGH) {
+    Serial.println("Knop ingedrukt!");
+  }
+}
+    </code></pre>
+
+    <h2>5. Logicaschema</h2>
+    <img src="images/flowchart.png" alt="Logica flowchart">
+
+    <h2>6. Foto's</h2>
+    <img src="images/opstelling-foto.jpg" alt="Opstelling volledig">
+
+    <h2>7. Uitbreidingen</h2>
+    <ul>
+        <li>Timer en kleurencode</li>
+        <li>Woord maken met display</li>
+        <li>Geluidspuzzel</li>
+        <li>Meerdere spellen via afstandsbediening</li>
+    </ul>
+
+    <h2>8. Bronnen</h2>
+    <ul>
+        <li><a href="https://www.arduino.cc/">Arduino documentatie</a></li>
+        <li><a href="https://fritzing.org/">Fritzing voor schema's</a></li>
+        <li><a href="https://github.com/">Overgenomen code van Github</a></li>
+    </ul>
+</body>
+</html>
