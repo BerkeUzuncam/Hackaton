@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Timed Buttons Escape Room Puzzle</h1>
-    <p><strong>Teamleden:</strong> [Naam1], [Naam2]</p>
+    <p><strong>Teamleden:</strong> Berke, Emile, Fons, Lukas, Cedric</p>
     <p><strong>Datum:</strong> April 2025</p>
 
     <h2>1. Werking</h2>
@@ -27,17 +27,56 @@
 
     <h2>4. Code</h2>
     <pre><code>
-// Simpele voorbeeldcode
-void setup() {
-  Serial.begin(9600);
-  pinMode(2, INPUT);
-}
-void loop() {
-  if(digitalRead(2) == HIGH) {
-    Serial.println("Knop ingedrukt!");
-  }
-}
+    const int numButtons = 4; // aantal knoppen
+    const byte buttonPins[numButtons] = {A0, A1, A2, A3}; // pinnen waarop knoppen aansluiten
+    const byte ledPins[numButtons] = {5, 4, 3, 2}; // pinnen aangesloten aan knoppen-leds
+    const byte relayPin = A5; // relay pin dat kracht geeft aan de maglock
+    
+    unsigned long buttonDuration[numButtons] = {100, 500, 1200, 2000}; // duratie in ms hoelang elke knop brandt
+    unsigned long lastPressTime[numButtons] = {0, 0, 0, 0}; // tijd dat de knop het laatst werd ingedrukt
+    bool buttonActive[numButtons] = {false, false, false, false}; // is de knop op dit moment actief
+    
+    void setup() {
+      // Initialiseer een serial connectie
+      Serial.begin(115200);
+      Serial.println("Programma gestart"); // _FILE_ en _DATE_ werkt niet standaard
+      // Configureer GPIO Pins
+      for (int i = 0; i &lt; numButtons; i++) {
+        pinMode(buttonPins[i], INPUT_PULLUP);
+        pinMode(ledPins[i], OUTPUT);
+      }
+      // Relay pin zal laag worden wanneer alle knoppen zijn geactiveerd
+      pinMode(relayPin, OUTPUT);
+      digitalWrite(relayPin, HIGH);
+    }
+    
+    void loop() {
+      // geef me de huidige tijd
+      unsigned long now = millis();
+      // aanduiden of alle knoppen zijn geactiveerd
+      bool allActive = true;
+      // Loop voor alle knoppen
+      for (int i = 0; i &lt; numButtons; i++) {
+        // als deze knop is ingedrukt
+        if (digitalRead(buttonPins[i]) == LOW) {
+          // reset de timer voor deze knop
+          lastPressTime[i] = now;
+        }
+        // als de tijd sinds de knop het laatst is ingedrukt kleiner is dan de duur, dan is het actief
+        buttonActive[i] = (now - lastPressTime[i] &lt; buttonDuration[i]);
+    
+        // als knop actief is, laat de led branden
+        digitalWrite(ledPins[i], buttonActive[i]);
+    
+        // als een knop nu niet actief is, zet allActive op false
+        if (buttonActive[i] == false) { allActive = false; }
+      }
+    
+      // als alle knoppen zijn ingedrukt, open het slot
+      digitalWrite(relayPin, allActive ? LOW : HIGH);
+    }
     </code></pre>
+    
 
     <h2>5. Logicaschema</h2>
     <img src="images/flowchart.png" alt="Logica flowchart">
